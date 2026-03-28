@@ -21,7 +21,23 @@ class Database
         try {
             // For Render.com deployment, use DATABASE_URL environment variable
             if (!empty(getenv('DATABASE_URL'))) {
-                $this->conn = new PDO(getenv('DATABASE_URL'));
+                $databaseUrl = getenv('DATABASE_URL');
+                $parts = parse_url($databaseUrl);
+
+                if ($parts !== false && isset($parts['scheme']) && isset($parts['host']) && isset($parts['path'])) {
+                    // Render provides postgres://... URLs; convert to PDO pgsql DSN.
+                    $host = $parts['host'];
+                    $port = isset($parts['port']) ? $parts['port'] : '5432';
+                    $dbName = ltrim($parts['path'], '/');
+                    $user = isset($parts['user']) ? $parts['user'] : null;
+                    $pass = isset($parts['pass']) ? $parts['pass'] : null;
+
+                    $dsn = 'pgsql:host=' . $host . ';port=' . $port . ';dbname=' . $dbName;
+                    $this->conn = new PDO($dsn, $user, $pass);
+                } else {
+                    // Fallback for any already-formatted DSN values.
+                    $this->conn = new PDO($databaseUrl);
+                }
             } else {
                 // For local development
                 $this->conn = new PDO(
