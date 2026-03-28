@@ -1,0 +1,406 @@
+{
+  "info": {
+    "_postman_id": "quotes-api-test-collection",
+    "name": "Quotes API - Data Integrity Testing",
+    "description": "Test collection for safely testing the Quotes API while maintaining data integrity",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "PHASE 1: DOCUMENT ORIGINAL STATE",
+      "description": "Run these requests FIRST to capture the original data state",
+      "item": [
+        {
+          "name": "1.1 GET All Quotes (Save Response)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "console.log('Total Quotes: ' + pm.response.json().length);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://docker-inf653-midterm-example.onrender.com/api/quotes/",
+              "protocol": "https",
+              "host": [
+                "docker-inf653-midterm-example",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "quotes",
+                ""
+              ]
+            },
+            "description": "Get all quotes and save the response to DATA_INTEGRITY_LOG.md under 'All Quotes'"
+          },
+          "response": []
+        },
+        {
+          "name": "1.2 GET All Authors (Save Response)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "console.log('Total Authors: ' + pm.response.json().length);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://docker-inf653-midterm-example.onrender.com/api/authors/",
+              "protocol": "https",
+              "host": [
+                "docker-inf653-midterm-example",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "authors",
+                ""
+              ]
+            },
+            "description": "Get all authors and save the response to DATA_INTEGRITY_LOG.md under 'All Authors'"
+          },
+          "response": []
+        },
+        {
+          "name": "1.3 GET All Categories (Save Response)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "console.log('Total Categories: ' + pm.response.json().length);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://docker-inf653-midterm-example.onrender.com/api/categories/",
+              "protocol": "https",
+              "host": [
+                "docker-inf653-midterm-example",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "categories",
+                ""
+              ]
+            },
+            "description": "Get all categories and save the response to DATA_INTEGRITY_LOG.md under 'All Categories'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PHASE 2: TEST YOUR API (Examples)",
+      "description": "Use these as templates for testing. Create, update, and delete as needed. But remember to restore!",
+      "item": [
+        {
+          "name": "Example: GET Quote by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://docker-inf653-midterm-example.onrender.com/api/quotes/?id=1",
+              "protocol": "https",
+              "host": [
+                "docker-inf653-midterm-example",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "quotes",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Example: GET Quotes by Author",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://docker-inf653-midterm-example.onrender.com/api/quotes/?author_id=1",
+              "protocol": "https",
+              "host": [
+                "docker-inf653-midterm-example",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "quotes",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "author_id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Example: GET Random Quote",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://docker-inf653-midterm-example.onrender.com/api/quotes/?random=true",
+              "protocol": "https",
+              "host": [
+                "docker-inf653-midterm-example",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "quotes",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "random",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Example: POST New Quote (REMEMBER TO DELETE!)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quote\": \"This is a test quote\",\n  \"author_id\": 1,\n  \"category_id\": 1\n}"
+            },
+            "url": {
+              "raw": "https://docker-inf653-midterm-example.onrender.com/api/quotes/",
+              "protocol": "https",
+              "host": [
+                "docker-inf653-midterm-example",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "quotes",
+                ""
+              ]
+            },
+            "description": "Creates a new quote. NOTE THE ID in the response. You MUST DELETE this later!"
+          },
+          "response": []
+        },
+        {
+          "name": "Example: PUT Update Quote (REMEMBER TO RESTORE!)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"quote\": \"Updated quote text\",\n  \"author_id\": 1,\n  \"category_id\": 1\n}"
+            },
+            "url": {
+              "raw": "https://docker-inf653-midterm-example.onrender.com/api/quotes/",
+              "protocol": "https",
+              "host": [
+                "docker-inf653-midterm-example",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "quotes",
+                ""
+              ]
+            },
+            "description": "Updates a quote. Make sure you know the original text so you can restore it!"
+          },
+          "response": []
+        },
+        {
+          "name": "Example: DELETE Quote (ONLY delete what you created!)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 26\n}"
+            },
+            "url": {
+              "raw": "https://docker-inf653-midterm-example.onrender.com/api/quotes/",
+              "protocol": "https",
+              "host": [
+                "docker-inf653-midterm-example",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "quotes",
+                ""
+              ]
+            },
+            "description": "Deletes a quote. Only use this ID from the POST you just made!"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PHASE 3: VERIFY DATA INTEGRITY",
+      "description": "Run these at the end to verify you didn't break anything",
+      "item": [
+        {
+          "name": "Final Verify: GET All Quotes (Should match original count)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "console.log('FINAL Quote Count: ' + pm.response.json().length);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://docker-inf653-midterm-example.onrender.com/api/quotes/",
+              "protocol": "https",
+              "host": [
+                "docker-inf653-midterm-example",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "quotes",
+                ""
+              ]
+            },
+            "description": "Compare the count with your initial count. They should match!"
+          },
+          "response": []
+        },
+        {
+          "name": "Final Verify: GET All Authors (Should match original count)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "console.log('FINAL Author Count: ' + pm.response.json().length);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://docker-inf653-midterm-example.onrender.com/api/authors/",
+              "protocol": "https",
+              "host": [
+                "docker-inf653-midterm-example",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "authors",
+                ""
+              ]
+            },
+            "description": "Compare the count with your initial count. They should match!"
+          },
+          "response": []
+        },
+        {
+          "name": "Final Verify: GET All Categories (Should match original count)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "console.log('FINAL Category Count: ' + pm.response.json().length);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://docker-inf653-midterm-example.onrender.com/api/categories/",
+              "protocol": "https",
+              "host": [
+                "docker-inf653-midterm-example",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "categories",
+                ""
+              ]
+            },
+            "description": "Compare the count with your initial count. They should match!"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

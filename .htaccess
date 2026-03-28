@@ -1,0 +1,12 @@
+# Optional .htaccess for URL rewriting
+# This file is only needed if your auto-routing isn't working
+# Most servers will automatically load index.php when accessing a directory
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Remove .php extension from URLs
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?url=$1 [L]
+</IfModule>
