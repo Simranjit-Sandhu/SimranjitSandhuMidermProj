@@ -5,12 +5,11 @@ if (isset($_GET['id'])) {
     // Get single category
     $category->id = (int)$_GET['id'];
     $result = $category->read_single();
-    $categories = $result->fetchAll(PDO::FETCH_ASSOC);
+    $category_item = $result->fetch(PDO::FETCH_ASSOC);
 
-    if ($categories) {
-        echo json_encode($categories);
+    if ($category_item) {
+        echo json_encode($category_item);
     } else {
-        http_response_code(404);
         echo json_encode(['message' => 'category_id Not Found']);
     }
 } else {
@@ -21,7 +20,6 @@ if (isset($_GET['id'])) {
     if ($categories) {
         echo json_encode($categories);
     } else {
-        http_response_code(404);
         echo json_encode(['message' => 'category_id Not Found']);
     }
 }

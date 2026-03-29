@@ -5,7 +5,6 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 // Check required fields
 if (!isset($data['id']) || !isset($data['category']) || empty($data['category'])) {
-    http_response_code(400);
     echo json_encode(['message' => 'Missing Required Parameters']);
     exit();
 }
@@ -16,7 +15,6 @@ $category->category = $data['category'];
 
 // Check if category exists
 if (!$category->exists($category->id)) {
-    http_response_code(404);
     echo json_encode(['message' => 'category_id Not Found']);
     exit();
 }

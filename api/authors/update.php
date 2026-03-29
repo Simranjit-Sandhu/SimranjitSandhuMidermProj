@@ -5,7 +5,6 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 // Check required fields
 if (!isset($data['id']) || !isset($data['author']) || empty($data['author'])) {
-    http_response_code(400);
     echo json_encode(['message' => 'Missing Required Parameters']);
     exit();
 }
@@ -16,7 +15,6 @@ $author->author = $data['author'];
 
 // Check if author exists
 if (!$author->exists($author->id)) {
-    http_response_code(404);
     echo json_encode(['message' => 'author_id Not Found']);
     exit();
 }

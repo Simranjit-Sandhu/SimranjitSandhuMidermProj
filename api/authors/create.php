@@ -5,7 +5,6 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 // Check if author field is present
 if (!isset($data['author']) || empty($data['author'])) {
-    http_response_code(400);
     echo json_encode(['message' => 'Missing Required Parameters']);
     exit();
 }

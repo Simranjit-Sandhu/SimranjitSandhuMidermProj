@@ -5,7 +5,6 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 // Check if category field is present
 if (!isset($data['category']) || empty($data['category'])) {
-    http_response_code(400);
     echo json_encode(['message' => 'Missing Required Parameters']);
     exit();
 }

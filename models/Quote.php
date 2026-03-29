@@ -33,7 +33,7 @@ class Quote
             $query .= ' AND q.category_id = :category_id';
         }
         if ($random) {
-            $query .= ' ORDER BY RAND() LIMIT 1';
+            $query .= ' ORDER BY RANDOM() LIMIT 1';
         }
 
         $stmt = $this->conn->prepare($query);

@@ -5,21 +5,18 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 // Check required fields
 if (!isset($data['quote']) || !isset($data['author_id']) || !isset($data['category_id'])) {
-    http_response_code(400);
     echo json_encode(['message' => 'Missing Required Parameters']);
     exit();
 }
 
 // Validate author_id exists
 if (!$author->exists($data['author_id'])) {
-    http_response_code(404);
     echo json_encode(['message' => 'author_id Not Found']);
     exit();
 }
 
 // Validate category_id exists
 if (!$category->exists($data['category_id'])) {
-    http_response_code(404);
     echo json_encode(['message' => 'category_id Not Found']);
     exit();
 }
