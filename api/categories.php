@@ -12,11 +12,16 @@ if ($method === 'GET') {
 
     $categories = $category->getCategories($id);
 
-    if (!empty($categories)) {
+    if ($id) {
+        if (!empty($categories)) {
+            echo json_encode($categories[0]);
+        } else {
+            echo json_encode(['message' => 'category_id Not Found']);
+        }
+    } elseif (!empty($categories)) {
         echo json_encode($categories);
     } else {
         echo json_encode(['message' => 'category_id Not Found']);
-        http_response_code(404);
     }
 }
 
@@ -27,7 +32,6 @@ elseif ($method === 'POST') {
     // Check for required parameters
     if (!isset($data['category']) || empty($data['category'])) {
         echo json_encode(['message' => 'Missing Required Parameters']);
-        http_response_code(400);
         exit;
     }
 
@@ -49,7 +53,6 @@ elseif ($method === 'PUT') {
     // Check for required parameters
     if (!isset($data['id']) || !isset($data['category']) || empty($data['category'])) {
         echo json_encode(['message' => 'Missing Required Parameters']);
-        http_response_code(400);
         exit;
     }
 
@@ -59,7 +62,6 @@ elseif ($method === 'PUT') {
         echo json_encode($result);
     } else {
         echo json_encode(['message' => 'category_id Not Found']);
-        http_response_code(404);
     }
 }
 
@@ -70,7 +72,6 @@ elseif ($method === 'DELETE') {
     // Check for required id parameter
     if (!isset($data['id'])) {
         echo json_encode(['message' => 'Missing Required Parameters']);
-        http_response_code(400);
         exit;
     }
 
@@ -78,7 +79,6 @@ elseif ($method === 'DELETE') {
     $categories = $category->getCategories($data['id']);
     if (empty($categories)) {
         echo json_encode(['message' => 'category_id Not Found']);
-        http_response_code(404);
         exit;
     }
 

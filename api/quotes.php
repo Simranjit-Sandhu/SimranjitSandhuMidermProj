@@ -21,7 +21,6 @@ if ($method === 'GET') {
             $author = new Author($conn);
             if (!$author->authorExists($author_id)) {
                 echo json_encode(['message' => 'author_id Not Found']);
-                http_response_code(404);
                 exit;
             }
         }
@@ -31,7 +30,6 @@ if ($method === 'GET') {
             $category = new Category($conn);
             if (!$category->categoryExists($category_id)) {
                 echo json_encode(['message' => 'category_id Not Found']);
-                http_response_code(404);
                 exit;
             }
         }
@@ -39,11 +37,16 @@ if ($method === 'GET') {
 
     $quotes = $quote->getQuotes($id, $author_id, $category_id, $random);
 
-    if (!empty($quotes)) {
+    if ($id) {
+        if (!empty($quotes)) {
+            echo json_encode($quotes[0]);
+        } else {
+            echo json_encode(['message' => 'No Quotes Found']);
+        }
+    } elseif (!empty($quotes)) {
         echo json_encode($quotes);
     } else {
         echo json_encode(['message' => 'No Quotes Found']);
-        http_response_code(404);
     }
 }
 
@@ -54,7 +57,6 @@ elseif ($method === 'POST') {
     // Check for required parameters
     if (!isset($data['quote']) || !isset($data['author_id']) || !isset($data['category_id'])) {
         echo json_encode(['message' => 'Missing Required Parameters']);
-        http_response_code(400);
         exit;
     }
 
@@ -62,7 +64,6 @@ elseif ($method === 'POST') {
     $author = new Author($conn);
     if (!$author->authorExists($data['author_id'])) {
         echo json_encode(['message' => 'author_id Not Found']);
-        http_response_code(404);
         exit;
     }
 
@@ -70,7 +71,6 @@ elseif ($method === 'POST') {
     $category = new Category($conn);
     if (!$category->categoryExists($data['category_id'])) {
         echo json_encode(['message' => 'category_id Not Found']);
-        http_response_code(404);
         exit;
     }
 
@@ -92,7 +92,6 @@ elseif ($method === 'PUT') {
     // Check for required parameters
     if (!isset($data['id']) || !isset($data['quote']) || !isset($data['author_id']) || !isset($data['category_id'])) {
         echo json_encode(['message' => 'Missing Required Parameters']);
-        http_response_code(400);
         exit;
     }
 
@@ -100,7 +99,6 @@ elseif ($method === 'PUT') {
     $author = new Author($conn);
     if (!$author->authorExists($data['author_id'])) {
         echo json_encode(['message' => 'author_id Not Found']);
-        http_response_code(404);
         exit;
     }
 
@@ -108,7 +106,6 @@ elseif ($method === 'PUT') {
     $category = new Category($conn);
     if (!$category->categoryExists($data['category_id'])) {
         echo json_encode(['message' => 'category_id Not Found']);
-        http_response_code(404);
         exit;
     }
 
@@ -118,7 +115,6 @@ elseif ($method === 'PUT') {
         echo json_encode($result);
     } else {
         echo json_encode(['message' => 'No Quotes Found']);
-        http_response_code(404);
     }
 }
 
@@ -129,7 +125,6 @@ elseif ($method === 'DELETE') {
     // Check for required id parameter
     if (!isset($data['id'])) {
         echo json_encode(['message' => 'Missing Required Parameters']);
-        http_response_code(400);
         exit;
     }
 
@@ -137,7 +132,6 @@ elseif ($method === 'DELETE') {
     $quotes = $quote->getQuotes($data['id']);
     if (empty($quotes)) {
         echo json_encode(['message' => 'No Quotes Found']);
-        http_response_code(404);
         exit;
     }
 

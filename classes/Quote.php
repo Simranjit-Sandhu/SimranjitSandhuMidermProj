@@ -26,7 +26,7 @@ class Quote {
         }
 
         if ($random) {
-            $query .= " ORDER BY RAND() LIMIT 1";
+            $query .= " ORDER BY RANDOM() LIMIT 1";
         }
 
         $stmt = $this->conn->prepare($query);
