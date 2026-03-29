@@ -16,6 +16,22 @@ The API returns JSON.
 - `/api/authors/`
 - `/api/categories/`
 
+## Live API (Render)
+
+Base URL:
+- https://quotes-api-n6ho.onrender.com
+
+Live endpoints:
+- https://quotes-api-n6ho.onrender.com/api/quotes/
+- https://quotes-api-n6ho.onrender.com/api/authors/
+- https://quotes-api-n6ho.onrender.com/api/categories/
+
+Live query examples:
+- https://quotes-api-n6ho.onrender.com/api/quotes/?id=1
+- https://quotes-api-n6ho.onrender.com/api/quotes/?author_id=1
+- https://quotes-api-n6ho.onrender.com/api/quotes/?category_id=1
+- https://quotes-api-n6ho.onrender.com/api/quotes/?random=true
+
 Use query params for filters, for example:
 - `/api/quotes/?id=10`
 - `/api/quotes/?author_id=5`
