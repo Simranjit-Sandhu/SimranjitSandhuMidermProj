@@ -1,3 +1,9 @@
+<!--
+    Name: Simranjit Sandhu
+    Class: INF653
+    Date: March 28, 2026
+    Project: Quotations REST API built with PHP and PostgreSQL, providing CRUD endpoints for quotes, authors, and categories.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
